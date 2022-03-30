@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <title> 9x9 乘法表 </title>
+    <meta charset="utf-8" />
+    <style>
+        #table1{
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding:6px;
+            text-align: center;
+        }
+        th{
+            background-color: aqua;
+        }
+        tr:nth-child(odd){
+            background-color: #e0e0e0;
+        }
+        tr:hover{
+            background-color: blue;
+            color: aliceblue;
+        }
+        tr:first-child:hover{
+            color: black;
+        }
+        
+    </style>
+  </head>
+  <body>
+    <div id="content1"></div>
+
+    <script>
+      var i, j, datarows = [], r1 = "";
+      var columns = [1,2,3,4,5,6,7,8,9];
+      
+      for (i = 1; i < 10; i++) {
+        var row = [];
+        for (j = 1; j < 10; j++) {
+          row.push(j + " * " + i + " = " + j * i);
+        }
+        datarows.push(row);
+      }
+      
+      var htmlStr = arr2dToHtmlTable(datarows, columns, '九九乘法表');
+      document.getElementById("content1").innerHTML += htmlStr;
+     
+      function arr2dToHtmlTable(datarows, columns, capString) {
+        var tableHtml = '<table id="table1" style="width: 100%;">\n'
+        var thStr = '', trStr = '';
+        tableHtml += '<caption>' + capString + '</caption>';
+        
+        if (columns.length > 0) {
+          thStr += '<tr><th>' 
+          thStr += columns.join('</th><th>');
+          thStr += '</th></tr>\n'
+          tableHtml += thStr
+        }
+
+        for (var i = 0, rowNum = datarows.length; i < rowNum; i++) {
+          trStr = '<tr><td>'
+          trStr += datarows[i].join('</td><td>')
+          trStr += '</td></tr>\n'
+          tableHtml += trStr
+        }
+        
+        tableHtml += '</table>\n'
+        return tableHtml;
+      }
+      console.log(htmlStr);
+    </script>
+  </body>
+</html>
